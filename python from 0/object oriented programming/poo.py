@@ -2,10 +2,10 @@
 
 ##age default = 0 
 class User:
-    #class attribute that is defined only once.
+    #Atributo da classe atribuido apenas uma vez.
     active_users = 0
 
-    #Class Methods --> not an instance --> the actual class user
+    #Class Methods -> não é instancia -> class user
     @classmethod
     def display_active_users(cls):
         return f"There are currently {cls.active_users} active users."
