@@ -1,6 +1,3 @@
-#Definindo uma classe simples
-
-##age default = 0 
 class User:
     #Atributo da classe atribuido apenas uma vez.
     active_users = 0
@@ -10,12 +7,17 @@ class User:
     def display_active_users(cls):
         return f"There are currently {cls.active_users} active users."
         
+    @classmethod
+    def from_string(cls, data_str):
+        first,last,age = data_str.split(",")
+        return cls(first, last, int = age)
+
     def __init__(self,first,last,age = 0):
         self.first = first
         self.last = last
         self.age = age
         User.active_users+=1
-
+  
     def logout(self):
         User.active_users -=1
         return f"{self.first} has logged out."
@@ -36,20 +38,30 @@ class User:
         self.age +=1
         return f"Happy {self.age}th, {self.first}"
 
+'''Aqui, iremos criar um MODERADOR, que é uma subclasse de USER.'''
+ 
 
-#user1 eh objeto da classe User
-#instanciando a classe abaixo ->
+class Moderator(User):
+    total_mods = 0
+    def __init__(self,first,last,age,community):
+         super().__init__(first,last,age)
+         self.community = community
+         Moderator.total_mods +=1
 
-user1 = User("Joe","Smith",68)
-user2 = User("Blanca","Lopez",41)
-# print(user1.is_senior())
-# print(user1.birthday())
-# print(user1.likes("Ice Cream"))
-# print(user2.initials())
-# print(user2.full_name())
+    @classmethod
+    def display_active_mods(cls):
+        return f"There are currently {cls.total_mods} active moderators"    
+   
+    def remove_post(self):
+        return f"{self.full_name()} removed a post from {self.community} community"
 
-#print("Currently we have {} active users".format(User.active_users))
-#print(user2.logout())
-#print("Currently we have {} active users" .format(User.active_users))
 
 print(User.display_active_users())
+u1 = User("Tom","Garcia",35)
+print(User.display_active_users())
+jasmine = Moderator("Jasmine","O'conner",61,"Piano")
+chiara = Moderator("Chiara","Belucci",25,"Ballet")
+print(User.display_active_users())
+print(Moderator.display_active_mods())
+
+    
